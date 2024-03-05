@@ -4,6 +4,7 @@ import { format } from 'date-fns'
 import { bundleMDX } from 'mdx-bundler'
 import { getMDXComponent } from 'mdx-bundler/client'
 import * as React from 'react'
+import { YouTubeVideo } from '#/app/components/blog/youtube-video'
 
 import { reader } from '#/app/utils/keystatic-reader.server'
 
@@ -33,7 +34,11 @@ export default function Post() {
 				Posted on {format(post.publishedOn, 'd MMMM yyyy')}
 			</p>
 			<div className="prose mt-6 prose-p:text-black">
-				<Component />
+				<Component
+					components={{
+						YouTubeVideo,
+					}}
+				/>
 			</div>
 		</div>
 	)

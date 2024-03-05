@@ -1,4 +1,7 @@
 import { collection, config, fields } from '@keystatic/core'
+import { block } from '@keystatic/core/content-components'
+
+import { YouTubeVideo } from '#/app/components/blog/youtube-video'
 
 export default config({
 	storage: { kind: 'local' },
@@ -35,7 +38,28 @@ export default config({
 					label: 'Published On',
 					validation: { isRequired: true },
 				}),
-				body: fields.mdx({ label: 'Post Body' }),
+				body: fields.mdx({
+					label: 'Post Body',
+					components: {
+						YouTubeVideo: block({
+							label: 'YouTube Video',
+							schema: {
+								videoId: fields.text({
+									label: 'Video ID',
+									description:
+										'The ID of the YouTube video (not the full URL!)',
+								}),
+								caption: fields.text({ label: 'Caption', multiline: true }),
+							},
+							ContentView: props => (
+								<YouTubeVideo
+									videoId={props.value.videoId}
+									caption={props.value.caption}
+								/>
+							),
+						}),
+					},
+				}),
 			},
 		}),
 	},
