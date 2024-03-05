@@ -1,5 +1,6 @@
 import { type LoaderFunctionArgs, json } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
+import { format } from 'date-fns'
 import { bundleMDX } from 'mdx-bundler'
 import { getMDXComponent } from 'mdx-bundler/client'
 import * as React from 'react'
@@ -28,7 +29,10 @@ export default function Post() {
 	return (
 		<div className="container py-16">
 			<h1 className="text-3xl font-semibold">{post.title}</h1>
-			<div className="prose prose-p:text-black mt-6">
+			<p className="mt-1 text-sm text-slate-500">
+				Posted on {format(post.publishedOn, 'd MMMM yyyy')}
+			</p>
+			<div className="prose mt-6 prose-p:text-black">
 				<Component />
 			</div>
 		</div>
