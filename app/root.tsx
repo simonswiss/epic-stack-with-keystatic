@@ -22,6 +22,7 @@ import {
 	useLoaderData,
 	useMatches,
 	useSubmit,
+	useLocation,
 } from '@remix-run/react'
 import { withSentry } from '@sentry/remix'
 import { useRef } from 'react'
@@ -220,6 +221,34 @@ function App() {
 	const isOnSearchPage = matches.find(m => m.id === 'routes/users+/index')
 	const searchBar = isOnSearchPage ? null : <SearchBar status="idle" />
 	useToast(data.toast)
+
+	// Bypass everything for Keystatic routes
+	const location = useLocation()
+
+	if (location.pathname.startsWith('/keystatic')) {
+		return (
+			<html lang="en">
+				<head>
+					<ClientHintCheck nonce={nonce} />
+					<Meta />
+					<meta charSet="utf-8" />
+					<meta name="viewport" content="width=device-width,initial-scale=1" />
+					<Links />
+				</head>
+				<body>
+					<Outlet />
+					<script
+						nonce={nonce}
+						dangerouslySetInnerHTML={{
+							__html: `window.ENV = ${JSON.stringify({})}`,
+						}}
+					/>
+					<ScrollRestoration nonce={nonce} />
+					<Scripts nonce={nonce} />
+				</body>
+			</html>
+		)
+	}
 
 	return (
 		<Document nonce={nonce} theme={theme} env={data.ENV}>
