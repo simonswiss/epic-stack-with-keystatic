@@ -47,7 +47,7 @@
     "@epic-web/invariant": "^1.0.0",
     "@epic-web/remember": "^1.0.2",
     "@epic-web/totp": "^1.1.2",
-    "@keystatic/core": "^0.5.1",
+    "@keystatic/core": "^0.5.11",
     "@keystatic/remix": "^5.0.0",
     "@mdx-js/react": "^3.0.1",
     "@nasa-gcn/remix-seo": "^2.0.0",
